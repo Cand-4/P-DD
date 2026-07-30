@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Dulces Deseos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark mb-4 shadow-sm" style="background-color: #5d4037;">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1 fw-bold">Dulces Deseos · Repostería</span>
+        <span class="text-white small">Bienvenido. Estamos listos para cumplir tus dulces deseos.</span>
+    </div>
+</nav>
+
+<div class="container mb-5">
+    <h2 class="fw-bold mb-4" style="color: #4e342e;">Catálogo de Postres</h2>
+    
+    <div class="row g-4">
+        
+        {% for pastel in postres %}
+        <div class="col-12 col-md-4">
+            <div class="card h-100 shadow-sm border-0 d-flex flex-column">
+                
+                <!-- cambio de imagen del producto -->
+                <img src="{{ url_for('static', filename='img/postres/' + pastel.4) }}" 
+                     class="card-img-top" 
+                     alt="{{ pastel.1 }}" 
+                     style="height: 200px; object-fit: cover; width: 100%;">
+                <!-- fin del cambio de imagen -->
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold" style="color: #3e2723;">{{ pastel.1 }}</h5>
+                    <p class="card-text text-muted small flex-grow-1">{{ pastel.2 }}</p>
+                    <h6 class="fw-bold text-success fs-5 mb-0">${{ pastel.3 }}</h6>
+                </div>
+                <div class="card-footer bg-white border-0 pt-0 pb-3">
+                    <a href="/pedido" class="btn btn-sm w-100 text-white fw-semibold py-2" style="background-color: #8d6e63;">Solicitar Pedido</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+</body>
+</html>
