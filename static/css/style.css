@@ -4,3 +4,29 @@ body{
 .card{
     border-radius:12px;
 }
+
+.img-postre{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    border-bottom: 2px solid #070706;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .img-postre{
+    transform: scale(10);
+}
+
+.card{
+    overflow: hidden;
+}
+
+.img-admin-miniatura {
+    width: 15px;
+    height: 15px;
+    object-fit: cover;
+    border-radius: 8px; 
+    border: 2px solid #8d6e63;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

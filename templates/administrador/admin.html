@@ -17,15 +17,13 @@
 
 <div class="container mb-5">
     
-    <!-- ========================================================= -->
-    <!-- 1. FORMULARIO PARA AÑADIR POSTRES (SIN ENTRAR A SQL) -->
-    <!-- ========================================================= -->
+    <!-- formulario para añadir los nuevos postres-->
     <div class="card shadow-sm border-0 mb-4 p-3" style="background-color: #efebe9;">
         <h5 class="fw-bold mb-3" style="color: #3e2723;">+ Agregar Nuevo Postre</h5>
-        <form action="/administrador/guardar" method="POST" class="row g-2">
+        <form action="/administrador/guardar" method="POST" enctype="multipart/form-data" class="row g-2">
             <div class="col-md-3">
                 <input type="text" name="nombre" class="form-control form-control-sm" placeholder="Nombre (Ej: Brownie)" required>
-            </div>
+                </div>
             <div class="col-md-4">
                 <input type="text" name="descripcion" class="form-control form-control-sm" placeholder="Descripción corta" required>
             </div>
@@ -33,7 +31,7 @@
                 <input type="number" step="0.01" name="precio" class="form-control form-control-sm" placeholder="Precio ($)" required>
             </div>
             <div class="col-md-2">
-                <input type="text" name="imagen" class="form-control form-control-sm" placeholder="foto.jpg" required>
+                <input type="file" name="imagen" class="form-control form-control-sm" accept="image/*" required>
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-sm w-100 text-white fw-bold" style="background-color: #8d6e63;">Guardar</button>
@@ -41,9 +39,8 @@
         </form>
     </div>
 
-    <!-- ========================================================= -->
-    <!-- 2. TABLA DINÁMICA DE GESTIÓN DEL CATÁLOGO -->
-    <!-- ========================================================= -->
+    
+    <!-- gestion del catalogo -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold" style="color: #3e2723;">Gestión del Catálogo</h3>
     </div>
@@ -62,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- CICLO QUE LEE LOS POSTRES DESDE LA BASE DE DATOS -->
+                    <!-- leer los postres desde la base de datos -->
                     {% for pastel in postres %}
                     <tr>
                         <td>#{{ pastel.0 }}</td>
@@ -71,8 +68,14 @@
                         <td class="fw-bold text-success">${{ pastel.3 }}</td>
                         <td><span class="badge bg-secondary">{{ pastel.4 }}</span></td>
                         <td class="text-end">
-                            <!-- Botón real para eliminar usando el ID del postre (pastel.0) -->
+                            <!-- boton real para eliminar usando el ID del postre (pastel.0) -->
                             <a href="/administrador/eliminar/{{ pastel.0 }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas eliminar este postre?')">Eliminar</a>
+                        </td>
+                        <td>    
+                            <div class="text-center mt-3">
+                                <img src="{{ url_for('static', filename='img/') + pastel.4 }}" class="img-admin-miniatura" alt="{{pastel.1}}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                                <span class="text-muted small">{{pastel.4}}</span>
+                            </div>
                         </td>
                     </tr>
                     {% else %}
@@ -84,6 +87,7 @@
             </table>
         </div>
     </div>
+   
 </div>
 
 </body>

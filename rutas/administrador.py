@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from database import mysql
-
+import os
 administrador = Blueprint('administrador', __name__)
 
 # muestra la tabla con todos los postres actuales
@@ -18,8 +18,12 @@ def guardar_postre():
     nombre = request.form.get('nombre')
     descripcion = request.form.get('descripcion')
     precio = request.form.get('precio')
-    imagen = request.form.get('imagen') # aqui se recibe el nombre del archivo
-
+    imagen = request.form.get('imagen')
+    img = request.files['imagen']  # aqui se recibe el archivo de imagen
+    n_img = img.filename
+    guardarImg = os.path.join('static/img', n_img)
+    img.save(guardarImg)  # guarda la imagen en la carpeta static/img
+    
     cursor = mysql.connection.cursor()
     try:
         cursor.execute("""
@@ -28,7 +32,7 @@ def guardar_postre():
         """, (nombre, descripcion, precio, imagen))
         mysql.connection.commit()
     except Exception as e:
-        # si el nombre está duplicado, cae aqui y no se rompe el sistema
+        # si el nombre está duplicado cae aqui y no se rompe el sistema
         print("Error: El postre ya existe o hubo un problema ->", e)
         
     cursor.close()
