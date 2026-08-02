@@ -10,7 +10,6 @@ body{
     height: 100px;
     object-fit: cover;
     object-position: center;
-    border-bottom: 2px solid #070706;
     transition: transform 0.3s ease;
 }
 
